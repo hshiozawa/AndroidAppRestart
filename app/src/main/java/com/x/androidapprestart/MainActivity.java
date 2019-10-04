@@ -1,7 +1,5 @@
 package com.x.androidapprestart;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,13 +29,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void restartApp() {
-        Intent intent = new Intent(this, MainActivity.class);
-        PendingIntent pi = PendingIntent.getActivity(this, 0, intent,
-                PendingIntent.FLAG_ONE_SHOT);
-        AlarmManager am =
-                (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-        am.setExact(AlarmManager.RTC, System.currentTimeMillis() + 10000, pi);
-        android.os.Process.killProcess(android.os.Process.myPid());
+        Context context = getApplicationContext();
+        Intent intent = RestartActivity.createIntent(context);
+        context.startActivity(intent);
     }
 
     @Override
